@@ -7,3 +7,4 @@ dumpreloadtest*
 *.html
 .idea/
 .vscode/
+.direnv
