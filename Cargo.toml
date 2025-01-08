@@ -10,31 +10,20 @@ repository = "https://github.com/jean-pierreBoth/hnswlib-rs"
 documentation = "https://docs.rs/hnsw_rs"
 edition = "2021"
 
-
-# declare a feature with no dependancy to get some modulated debug print
-# to be run with cargo build --features verbose_1
-#verbose_1 = [ ]
-
 [profile.release]
 lto = true
 opt-level = 3
 
 [lib]
-# cargo rustc --lib -- --crate-type cdylib [or staticlib] or rlib (default)
-# if we want to avoid specifying in advance crate-type 
 path = "src/lib.rs"
-#crate-type = ["cdylib"]
-
 
 [[example]]
 name = "random"
 path = "examples/random.rs"
 
-
 [[example]]
 name = "ann-glove"
 path = "examples/ann-glove25-angular.rs"
-
 
 [[example]]
 name = "ann-mnist"
@@ -48,49 +37,27 @@ path = "examples/ann-sift1m-128-euclidean.rs"
 name = "levenshtein"
 path = "examples/levensthein.rs"
 
-
 [dependencies]
-# default is version spec is ^ meaning can update up to max non null version number
-# cargo doc --no-deps avoid dependencies doc generation
-#
-
+anyhow = { version = "1.0" }
+anndists = { version = "0.1.2" }
 serde = { version = "1.0", features = ["derive"] }
 bincode = { version = "1.3" }
-
 cfg-if = { version = "1.0" }
-
-# for //
 parking_lot = "0.12"
 rayon = { version = "1.10" }
 num_cpus = { version = "1.16" }
-
 cpu-time = { version = "1.0" }
 num-traits = { version = "0.2" }
-
-
-#  for hashing . hashbrown still needed beccause of get_key_value(&key)
 hashbrown = { version = "0.14" }
 indexmap = { version = "2.2" }
-
 rand = { version = "0.8" }
 lazy_static = { version = "1.4" }
-
-#
 mmap-rs = { version = "0.6" }
-#
-# decreasing order of log for debug build : (max_level_)trace debug info warn error off
-# decreasing order of log for release build (release_max_level_)  .. idem
-#log = { version = "0.4", features = ["max_level_debug", "release_max_level_info"] }
 log = { version = "0.4" }
+# NOTE: put this in dev dependencies, as it is a logging consumer? 
 env_logger = { version = "0.10" }
 
-anyhow = { version = "1.0" }
-
-#anndists = { path = "../anndists" }
-anndists = { version = "0.1.2" }
-# anndists = { git = "https://github.com/jean-pierreBoth/anndists" }
-
-# for benchmark reading, so the lbrary do not depend on hdf5 nor ndarray
+# for benchmarks and examples
 [dev-dependencies]
 hdf5 = { git = "https://github.com/aldanor/hdf5-rust.git" }
 hdf5-sys = { git = "https://github.com/aldanor/hdf5-rust.git", features = ["static", "zlib"]}
@@ -98,12 +65,9 @@ ndarray = { version = "0.15" }
 skiplist = { version = "0.5" }
 tempfile = { version = "3" }
 
-
 [features]
-
 default = []
-
+# feature for std simd on nightly
 stdsimd = ["anndists/stdsimd"]
 # feature for simd on stable for x86*
 simdeez_f = ["anndists/simdeez_f"]
-# feature for std simd on nightly
