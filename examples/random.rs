@@ -11,10 +11,9 @@ use hnsw_rs::prelude::*;
 
 fn main() {
     env_logger::Builder::from_default_env().init();
-    //
+    // generate `nb_elem` column vectors of dimension `dim`
     let nb_elem = 500000;
     let dim = 25;
-    // generate nb_elem colmuns vectors of dimension dim
     let mut rng = thread_rng();
     let unif = Uniform::<f32>::new(0., 1.);
     let mut data = Vec::with_capacity(nb_elem);

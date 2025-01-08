@@ -1,4 +1,4 @@
-// gathers modules to include and re-exorts all of anndists!
+// gathers modules to include and re-export all of hnswlib-rs and anndists!
 
 pub use crate::api::*;
 pub use crate::hnsw::*;
